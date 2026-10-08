@@ -1,90 +1,77 @@
 <!doctype html>
-<html lang="zh-CN"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>K5032 宣化幅 · 下马岭组野外采样</title>
-<style>
-:root{--ink:#152a31;--brand:#096d6d;--bg:#edf3f2;--muted:#64767b;--line:#ced9d8}
-*{box-sizing:border-box}body{margin:0;font:14px/1.55 -apple-system,BlinkMacSystemFont,"Microsoft YaHei",Arial,sans-serif;color:var(--ink);background:var(--bg)}
-#map{position:fixed;inset:0;background:linear-gradient(120deg,#e9e7d9,#c5e0db)}
-header{position:fixed;z-index:11;top:10px;left:10px;right:10px;display:flex;align-items:center;justify-content:space-between;background:#fffffff1;border-radius:12px;box-shadow:0 2px 18px #0002;padding:10px 12px}
-header strong{font-size:15px}header small{display:block;color:var(--muted)}
-button,select,input{font:inherit}button{border:1px solid #a9c3c1;color:var(--brand);border-radius:9px;background:#fff;padding:8px 10px;cursor:pointer}
-button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}button:disabled{opacity:.5;cursor:not-allowed}
-#panel{position:fixed;z-index:12;left:10px;top:76px;bottom:12px;width:min(350px,calc(100vw - 20px));background:#fffffff5;border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 20px #0002;display:flex;flex-direction:column;overflow:hidden}
-#panel.fold{display:none}#control{padding:13px;overflow:auto}#control section{border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:12px}h3{font-size:13px;margin:0 0 9px}.muted{color:var(--muted);font-size:12px}
-input[type=text],input[type=password],select{padding:9px 10px;width:100%;border:1px solid #b2c8c5;border-radius:7px;background:white;margin:4px 0 7px}
-.row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.row>*{flex-shrink:0}label{font-size:12px}
-#samples{list-style:none;padding:0;margin:0;max-height:37vh;overflow:auto}
-#samples li{border-bottom:1px solid #e6eeee;padding:8px 1px;display:flex;gap:6px;align-items:center;justify-content:space-between}
-#samples strong{display:block;font-size:13px}#samples small{color:var(--muted)}
-#samples button{font-size:11px;padding:5px 7px}
-#status{padding:8px 13px;background:#dbeae6;color:#285b58;font-size:12px}
-#preview{position:absolute;inset:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
-#preview svg{width:100%;height:100%;max-width:1300px}
-#preview note{color:var(--muted)}
-#credits{position:fixed;bottom:6px;right:9px;background:#fffc;border-radius:6px;padding:3px 6px;font-size:10px;color:#405154}
-@media(max-width:700px){#panel{top:auto;bottom:8px;height:55vh;max-height:70vh;width:calc(100vw - 16px);left:8px}#panel.fold{display:none}header{left:8px;right:8px;top:8px}#samples{max-height:20vh}}
-</style></head><body>
-<div id="map"><div id="preview"><svg viewBox="0 0 900 650" xmlns="http://www.w3.org/2000/svg"><rect width="900" height="650" fill="#e0ebdf"/><g opacity=".36" stroke="#719e90" fill="none" stroke-width="2"><path d="M0 120 Q300 280 900 80"/><path d="M0 300 Q350 530 900 260"/><path d="M0 550 Q450 250 900 590"/></g><text x="450" y="140" text-anchor="middle" font-size="23" font-weight="bold" fill="#27565a">K5032 宣化幅 · 野外采样点</text><text x="450" y="172" text-anchor="middle" font-size="14" fill="#546c70">填写高德 Web JS API Key 后显示交互底图</text><g id="previewPoints"></g></svg></div></div>
-<header><div><strong>宣化幅 K5032 · 下马岭组采样地图</strong><small>12个预设位置 · GCJ-02 高德坐标</small></div><button id="menu">☰ 地图工具</button></header>
-<div id="panel">
- <div id="status" role="status">地图入口已就绪；地质栅格和完整数据包尚待上传。</div>
- <div id="control">
- <section><h3>高德地图设置</h3>
- <label>Web 端 JS API Key <input type="text" id="key" placeholder="请输入你自己的 JS API Key" autocomplete="off"/></label>
- <label>安全密钥（Security JS Code）<input type="password" id="security" placeholder="请输入安全密钥" autocomplete="off"/></label>
- <div class="row"><button class="primary" id="load">加载高德地图</button><button id="locate">GPS 定位</button><button id="sat">卫星底图</button></div>
- <p class="muted">密钥仅保存在这台设备的浏览器中；不要将密钥提交到公开仓库。请在高德控制台配置域名。</p></section>
- <section><h3>地质原色图叠加（待补齐资源）</h3>
- <label>显示范围<select id="scope"><option value="local">下马岭组采样区</option><option value="full">宣化幅全图</option></select></label>
- <label>地质图透明度 <input id="opacity" type="range" min="0" max="100" value="70" style="width:100%"/></label>
- <div class="muted">需要上传 data/raster/K5032_native_GCJ02_local.webp 和 K5032_native_GCJ02_full.webp，当前页面会自动检测并加载。</div></section>
- <section><h3>采样点 <span id="count">12</span> 处</h3>
- <input id="search" type="text" placeholder="搜索名称、点号或备注"/>
- <ul id="samples"></ul></section>
- <section><h3>采样记录</h3><div class="row"><button id="add">在地图上新增样点</button><button id="export">导出 CSV</button></div>
- <p class="muted">新增点位只存储在当前浏览器，野外使用请及时导出备份。底图和导航需要联网。</p></section>
- <p class="muted">图幅地质坐标仅为近似配准，不应用于米级定位或精确地层界线判定。</p>
- </div>
-</div><div id="credits">K5032 · 采样位置示意 · 仅供野外踏勘参考</div>
-<script>
-'use strict';
-const pts=[
-["夏家沟夏马岭组露头（主采样点）",115.254464,40.460101,"1","XJG；优先寻找低成熟富有机质黑色页岩、富藻油页岩"],
-["黄土岗夏马岭组露头",115.229094,40.454094,"2","HTG；空间对照点"],
-["下花园夏马岭组剖面",115.271084,40.471685,"3","连续地层／钻孔研究基准"],
-["鸡镇屯夏马岭组道路剖面",115.281256,40.463269,"4","道路切坡，优先核查新鲜露头"],
-["黄土岗 Member IV 道路剖面",115.221886,40.453696,"6","夏马岭组上部层段对照"],
-["下花园 Core 1",115.280843,40.461852,"8","钻孔／地层辅助定位"],
-["下花园 Core 3",115.279176,40.464907,"8","钻孔／地层辅助定位"],
-["下花园 Core 2/4",115.275004,40.468238,"8","钻孔／地层辅助定位"],
-["赵家山剖面1",115.408230,40.469465,"7","避开辉绿岩接触热影响带"],
-["赵家山剖面2",115.406635,40.468142,"7","赵家山空间对照"],
-["赵家山剖面3",115.396077,40.478977,"7","赵家山空间对照"],
-["赵家山剖面4",115.395465,40.478954,"7","赵家山空间对照"]
-];
-const $=id=>document.getElementById(id), userKey='k5032-field-map-';
-let map, raster, markers=[], sat=false, adding=false, mypts=[];
-try{mypts=JSON.parse(localStorage.getItem(userKey+'samples')||'[]')}catch(e){}
-$('key').value=localStorage.getItem(userKey+'api')||'';
-$('security').value=localStorage.getItem(userKey+'security')||'';
-function all(){return pts.concat(mypts)}
-function status(s){$('status').textContent=s}
-function escapeHTML(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function navUrl(p){return 'https://uri.amap.com/marker?position='+p[1]+','+p[2]+'&name='+encodeURIComponent(p[0])+'&coordinate=gaode&callnative=1&src=k5032-field-map'}
-function focusPoint(i){let p=all()[i];if(map){map.setZoomAndCenter(15,[p[1],p[2]])}else{status('请填写高德 Key 以查看地图，点位：'+p[0])}}
-function renderList(){let q=$('search').value.trim().toLowerCase();let found=0;$('samples').replaceChildren();all().forEach((p,i)=>{if(!([p[0],p[3],p[4]].join(' ').toLowerCase().includes(q)))return;found++;let li=document.createElement('li');let a=document.createElement('div');a.style.flex='1';a.innerHTML='<strong>'+escapeHTML(p[0])+'</strong><small>'+p[1].toFixed(6)+', '+p[2].toFixed(6)+'</small>';a.addEventListener('click',()=>focusPoint(i));let f=document.createElement('button');f.textContent='查看';f.addEventListener('click',()=>focusPoint(i));let n=document.createElement('button');n.textContent='导航 ↗';n.addEventListener('click',()=>window.open(navUrl(p),'_blank'));li.append(a,f,n);$('samples').append(li)});$('count').textContent=found+'/'+all().length}
-function preview(){let svg=$('previewPoints');pts.forEach((p,i)=>{let x=120+(p[1]-115.20)*1180,y=470-(p[2]-40.44)*3800;let el=document.createElementNS('http://www.w3.org/2000/svg','g');let col=i===0?'#e74a3b':i>=8?'#7658ad':'#167aa5';el.innerHTML='<circle cx="'+x+'" cy="'+y+'" r="8" fill="'+col+'" stroke="white" stroke-width="2"/><text x="'+(x+12)+'" y="'+(y+5)+'" font-size="11" fill="#1d454e">'+escapeHTML(p[0].slice(0,7))+'</text>';svg.append(el)})}
-function baseMarkers(){markers.forEach(m=>m.setMap(null));markers=[];all().forEach((p,i)=>{let m=new AMap.Marker({position:[p[1],p[2]],title:p[0],label:{direction:'top',content:'<div style="padding:2px;background:white;font-size:11px;border-radius:4px">'+escapeHTML(p[0])+'</div>'},offset:new AMap.Pixel(-10,-30)});m.on('click',()=>{map.setCenter([p[1],p[2]]);new AMap.InfoWindow({content:'<div style="padding:8px;max-width:220px"><b>'+escapeHTML(p[0])+'</b><p>'+escapeHTML(p[4]||'')+'</p><a target="_blank" rel="noopener" href="'+navUrl(p)+'">高德导航 ↗</a></div>',offset:new AMap.Pixel(0,-25)}).open(map,[p[1],p[2]])});m.setMap(map);markers.push(m)})}
-function loadRaster(){if(!map)return;if(raster){map.remove(raster);raster=null}let local=$('scope').value==='local';let path='data/raster/K5032_native_GCJ02_'+(local?'local':'full')+'.webp';let bounds=local?[115.18783957429733,40.4169936177285,115.46916916985421,40.52714452200078]:[115.00597588177207,40.00096358459906,116.00652046848062,40.6683096617043];let test=new Image();test.onload=()=>{raster=new AMap.ImageLayer({url:path,bounds:new AMap.Bounds([bounds[0],bounds[1]],[bounds[2],bounds[3]]),opacity:Number($('opacity').value)/100,zooms:[2,20]});map.add(raster);status('已加载原色地质叠加图（近似配准）')};test.onerror=()=>status('12个点位已可用；地质图资源尚未上传：'+path);test.src=path}
-function startMap(){const key=$('key').value.trim(),sec=$('security').value.trim();if(!key){status('请先输入高德 Web JS API Key');return}localStorage.setItem(userKey+'api',key);localStorage.setItem(userKey+'security',sec);if(sec)window._AMapSecurityConfig={securityJsCode:sec};if(window.AMap){init();return}let script=document.createElement('script');script.src='https://webapi.amap.com/maps?v=2.0&key='+encodeURIComponent(key);script.onload=init;script.onerror=()=>status('高德 SDK 加载失败，请检查网络、Key 与安全密钥');document.head.append(script);status('正在连接高德地图…')}
-function init(){try{$('map').innerHTML='';map=new AMap.Map('map',{center:[115.288,40.463],zoom:12,viewMode:'2D'});baseMarkers();loadRaster();map.on('click',e=>{if(!adding)return;adding=false;let c=e.lnglat;let name=prompt('输入新样点名称','新样点 '+(mypts.length+1));if(!name)return;let note=prompt('野外备注（可留空）','')||'';mypts.push([name,c.lng,c.lat,'新',note]);localStorage.setItem(userKey+'samples',JSON.stringify(mypts));renderList();baseMarkers();status('样点已保存在此浏览器，请及时导出 CSV')});$('preview')?.remove()}catch(e){status('加载失败：'+e.message)}}
-function gpsToGCJ(lon,lat){const PI=Math.PI,a=6378245,ee=.006693421622965943;if(lon<72||lon>138||lat<.8||lat>56)return[lon,lat];let x=lon-105,y=lat-35;const transformLat=()=>-100+2*x+3*y+.2*y*y+.1*x*y+.2*Math.sqrt(Math.abs(x))+(20*Math.sin(6*x*PI)+20*Math.sin(2*x*PI))*2/3+(20*Math.sin(y*PI)+40*Math.sin(y/3*PI))*2/3+(160*Math.sin(y/12*PI)+320*Math.sin(y*PI/30))*2/3;const transformLon=()=>300+x+2*y+.1*x*x+.1*x*y+.1*Math.sqrt(Math.abs(x))+(20*Math.sin(6*x*PI)+20*Math.sin(2*x*PI))*2/3+(20*Math.sin(x*PI)+40*Math.sin(x/3*PI))*2/3+(150*Math.sin(x/12*PI)+300*Math.sin(x/30*PI))*2/3;let rlat=lat/180*PI,magic=1-ee*Math.sin(rlat)**2,sqrt=Math.sqrt(magic);return[lon+transformLon()*180/(a/sqrt*Math.cos(rlat)*PI),lat+transformLat()*180/(a*(1-ee)/(magic*sqrt)*PI)]}
-$('load').onclick=startMap;$('menu').onclick=()=>$('panel').classList.toggle('fold');
-$('scope').onchange=loadRaster;$('opacity').oninput=()=>{if(raster)raster.setOpacity(Number($('opacity').value)/100)};
-$('search').oninput=renderList;$('add').onclick=()=>{if(!map){status('请先加载高德地图');return}adding=true;status('点击地图选择新样点位置')};
-$('sat').onclick=()=>{if(!map){status('请先加载高德地图');return}sat=!sat;map.setMapStyle(sat?'amap://styles/satellite':'amap://styles/normal');$('sat').textContent=sat?'普通底图':'卫星底图'};
-$('locate').onclick=()=>{if(!map){status('请先加载高德地图');return}if(!navigator.geolocation){status('当前浏览器不支持GPS');return}status('正在请求GPS权限…');navigator.geolocation.getCurrentPosition(p=>{let c=gpsToGCJ(p.coords.longitude,p.coords.latitude);map.setZoomAndCenter(16,c);new AMap.CircleMarker({center:c,radius:9,strokeColor:'#fff',strokeWeight:2,fillColor:'#007bff',fillOpacity:.9}).setMap(map);status('已定位（手机GPS转换为GCJ-02，存在设备精度误差）')},err=>status('定位失败：'+err.message),{enableHighAccuracy:true,timeout:15000})};
-$('export').onclick=()=>{const rows=[['名称','GCJ02经度','GCJ02纬度','编号','备注'],...all()];const csv='\uFEFF'+rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\r\n');let a=document.createElement('a'),u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.href=u;a.download='K5032_采样点.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)};
-renderList();preview();
-</script></body></html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>宣化幅 K5032 下马岭组野外地质地图 v5.1 集合版</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="map"></div>
+<div id="offlinePreview"><figure><img src="data/preview/K5032_12点位_原色预览.jpg" alt="宣化幅12处采样点原色地质图预览"><figcaption>未加载高德时显示原图静态预览 · 可在“高德设置”输入 Web JS API Key</figcaption></figure></div>
+<div id="toolbar">
+  <button id="btnMenu">图层</button>
+  <button id="btnBase" data-sat="0">卫星图</button>
+  <button id="btnLocate">定位</button>
+  <button id="btnAddSample">新增样点</button>
+  <button id="btnSetup">高德设置</button>
+</div>
+<div id="scopebar">
+  <label>数据范围</label>
+  <select id="scopeSelect">
+    <option value="local">夏马岭组采样区（654要素）</option>
+    <option value="full">K5032 宣化幅全图幅（6637要素）</option>
+  </select>
+  <span id="loadState"></span>
+</div>
+<aside id="panel" class="open">
+  <div class="panel-head"><b>宣化幅 K5032 · 原版1∶20万图式 v5.1</b><button id="btnClosePanel">×</button></div>
+  <div class="tabs"><button class="tab active" data-tab="layers">图层</button><button class="tab" data-tab="search">搜索</button><button class="tab" data-tab="info">属性</button><button class="tab" data-tab="samples">样点</button><button class="tab" data-tab="about">数据审计</button></div>
+  <section id="tab-layers" class="tabbody active">
+    <h3 class="legend-first-title">K-50-(32) 宣化幅 · 原版图例与地质符号</h3>
+    <div id="legend"></div>
+    <div class="raster-controls">
+      <label class="layer-row"><input type="checkbox" id="rasterK5032" checked><span id="rasterScopeName">宣化幅原版图 · 采样区</span><button type="button" id="focusK5032">定位</button></label>
+      <div class="slider-row"><label>原版图透明度</label><input id="rasterOpacitySlider" type="range" min="0" max="1" step="0.05" value="0.72"><span id="rasterOpacityValue">72%</span></div>
+    </div>
+    <h3>矢量查询层</h3>
+    <div id="layerSwitches"></div>
+    <div class="slider-row"><label>矢量面透明度</label><input id="opacitySlider" type="range" min="0" max="0.85" step="0.05" value="0.06"><span id="opacityValue">6%</span></div>
+  </section>
+  <section id="tab-search" class="tabbody">
+    <input id="searchInput" placeholder="搜索 下马岭组、赵家山、侵入岩、断层、地层代号……">
+    <button id="btnSearch" class="wide">搜索全部属性</button>
+    <div id="searchResults"></div>
+  </section>
+  <section id="tab-info" class="tabbody"><div id="featureInfo" class="hint">先在“图层”中开启相应矢量查询层，再点击地图查看全部原始属性。既有12个采样点默认可点击。</div></section>
+  <section id="tab-samples" class="tabbody">
+    <div class="sample-actions"><button id="btnExportCSV">导出 CSV</button><button id="btnExportGeoJSON">导出 GeoJSON</button><button id="btnClearSamples">清空新增点</button></div>
+    <div id="sampleList"></div>
+  </section>
+  <section id="tab-about" class="tabbody">
+    <div class="about">
+      <p><b>源图幅：</b>K-50-(32) 宣化幅，1∶20万地质图。来自你上传的 K5032.rar（MAPGIS 6.7）和 k5032.TIF 原始图面。</p>
+      <p><b>功能：</b>原版图及图例、卫星底图、地质矢量查询、全部原始属性搜索、12处既有采样点、点击新增样点、CSV/GeoJSON导出、高德APP导航。</p>
+      <p><b>图层完整性：</b>GeoPackage中11类原始空间图层共6625个要素，另有12个预设采样点；全幅6637个要素、采样区654个。矢量图层默认只开启采样点，避免覆盖TIF原始配色和符号。</p>
+      <p><b>配准精度：</b>原始TIF没有内嵌地理坐标，根据经纬网和图框四角近似定位。北京54的地理经纬度显示时暂近似视为WGS84后转换为GCJ-02，未进行有实测控制点支持的七参数转换。图上地层边界与采样点不能用于米级判定。</p>
+      <p><b>新增采样点：</b>浏览器会在本机本域名保存新样点；要备份请及时导出CSV或GeoJSON。自采数据使用GCJ-02，不应直接当WGS84科研测量数据。</p>
+      <p><b>使用限制：</b>官方高德APP可通过导航链接打开点位，但不能直接加载本地图层。手机要查看自定义地质图，需要把该网页及文件部署在支持HTTPS的服务器上。</p>
+      <div class="precision-warning">注意：旧1∶20万地质图仅可用于区域地层和断层背景判读。XJG等部分点位与原图所标地层不一致，需现场结合真实露头复核。</div>
+    </div>
+  </section>
+</aside>
+<div id="status"></div>
+
+
+<div id="legendModal" class="modal legend-modal"><div class="legend-modalbox">
+  <div class="legend-modal-head"><b id="legendModalTitle">原版图例</b><button data-close="legendModal">×</button></div>
+  <div class="legend-zoom-hint">可滚动查看；浏览器可用 Ctrl + / Ctrl - 放大缩小。</div>
+  <img id="legendModalImg" src="data/legend/K5032_原始右侧地质图例.png" alt="K5032 原版图例">
+</div></div>
+<div id="setupModal" class="modal"><div class="modalbox"><h2>高德 JS API 设置（Web端）</h2><label>Web端 JS API Key<input id="amapKey"></label><label>securityJsCode<input id="securityCode"></label><div class="modal-actions"><button data-close="setupModal">取消</button><button id="btnSaveSetup" class="primary">保存并重新加载</button></div></div></div>
+<div id="sampleModal" class="modal"><div class="modalbox"><h2>新增采样点</h2><div id="sampleCoord" class="hint"></div><label>编号<input id="sampleCode"></label><label>岩性<input id="sampleLithology"></label><label>产状<input id="sampleAttitude"></label><label>距脉体/反应带<input id="sampleDistance"></label><label>流体/构造关系<input id="sampleRelation"></label><label>备注<textarea id="sampleNote"></textarea></label><div class="modal-actions"><button data-close="sampleModal">取消</button><button id="btnSaveSample" class="primary">保存</button></div></div></div>
+<script src="data/local_data.js"></script>
+<script src="data/raster_layers.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

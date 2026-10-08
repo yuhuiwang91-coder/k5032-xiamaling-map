@@ -1,0 +1,29 @@
+K5032宣化幅 · 下马岭组 v5.1 手机网页版部署说明
+========================================
+本文件夹是从完整v5.1集合包提取的“GitHub Pages网页运行版”，不是MAPGIS源文件备份。请保留原完整包。
+
+【一、上传GitHub（推荐）】
+1. 登录 github.com，创建新仓库，例如 k5032-xiamaling-field-map。注意：GitHub Pages免费公开仓库意味着地图位置和前端资源可能被其他人看到。请不要上传未公开的野外采样记录和密钥。
+2. 进入新仓库主页面 > Add file > Upload files。把本文件夹内部的 index.html、app.js、styles.css 和整个 data 文件夹上传到仓库根目录。上传后仓库首页应能直接看到 index.html 和 data/，不能多套一层“手机GitHubPages部署包”目录。
+3. Commit changes。
+4. 在仓库 Settings > Pages > Build and deployment 中选 Deploy from a branch，Branch 选 main，Folder 选 /(root)，Save。
+5. 部署完成后，页面提供 https://你的GitHub用户名.github.io/k5032-xiamaling-field-map/ ，用手机浏览器打开。
+6. 点击页面“高德设置”，填写属于你自己的高德开放平台 Web端(JS API) Key 与 securityJsCode，保存后加载地图。需按高德要求配置合法域名；GitHub Pages域名、Key类型不匹配时无法正常加载。
+7. Android Chrome 可用菜单“添加到主屏幕”；iPhone Safari 点分享 > 添加到主屏幕。之后可像APP一样从桌面打开。
+
+【二、同一Wi-Fi临时访问】
+1. 解压文件夹，在Windows终端中进入本文件夹，执行 python -m http.server 8000 --bind 0.0.0.0
+2. 在电脑 cmd 中输入 ipconfig，找到Wi-Fi网络的IPv4地址，例如192.168.1.8。
+3. 手机与电脑接入同一个Wi-Fi，手机浏览器打开 http://192.168.1.8:8000/ 。
+4. 如果打不开：检查电脑防火墙是否允许Python的8000端口、是否是同一Wi-Fi、酒店网络有无设备隔离。
+5. 注意：局域网HTTP页面通常不具备浏览器GPS高精度定位的HTTPS安全上下文条件。野外正常使用推荐上述GitHub Pages HTTPS部署。
+
+【三、重要操作】
+- “图层”可设置MAPGIS原色地质图叠加及透明度。
+- “卫星图”切换高德卫星图。
+- “定位”使用手机浏览器位置权限，需要HTTPS和手机授权。
+- “样点”含12个预设点；点击“高德APP点位”可跳高德导航。
+- “新增样点”记录只保存在当前浏览器localStorage，不自动同步手机与电脑；要及时导出CSV/GeoJSON备份。浏览器清理数据可能导致记录消失。
+- 默认加载局部采样范围；如要浏览整幅宣化幅，切换“全图幅”时需要加载约8MB的JS数据，移动网络耗时更长。
+- 地质图按图框近似配准，没有地面控制点精校，不可用于米级野外边界定位。
+- 在线底图、加载高德API、GitHub Pages均需要联网，不能当作离线导航APP。

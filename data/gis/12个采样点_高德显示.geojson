@@ -1,0 +1,329 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.254464,
+          40.460101
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 1,
+        "name": "夏家沟夏马岭组露头（主采样点）",
+        "site_code": "XJG",
+        "group": "下花园",
+        "priority": 1,
+        "remarks": "主采样点。优先寻找低成熟富有机质黑色页岩、富藻油页岩。",
+        "longitude_gcj02": 115.254464,
+        "latitude_gcj02": 40.460101,
+        "longitude_wgs84": 115.248083,
+        "latitude_wgs84": 40.458817,
+        "wgs84_source": "用户提供的WGS84",
+        "geological_unit_from_200k_sheet": "髫髻山组上段"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.229094,
+          40.454094
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 2,
+        "name": "黄土岗夏马岭组露头",
+        "site_code": "HTG",
+        "group": "下花园",
+        "priority": 2,
+        "remarks": "夏马岭组空间对照点。",
+        "longitude_gcj02": 115.229094,
+        "latitude_gcj02": 40.454094,
+        "longitude_wgs84": 115.2227,
+        "latitude_wgs84": 40.4528,
+        "wgs84_source": "用户提供的WGS84",
+        "geological_unit_from_200k_sheet": "门头沟组"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.271084,
+          40.471685
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 3,
+        "name": "下花园夏马岭组剖面",
+        "site_code": "XHY",
+        "group": "下花园",
+        "priority": 3,
+        "remarks": "连续地层/钻孔研究基准。",
+        "longitude_gcj02": 115.271084,
+        "latitude_gcj02": 40.471685,
+        "longitude_wgs84": 115.264694,
+        "latitude_wgs84": 40.470392,
+        "wgs84_source": "用户提供的WGS84",
+        "geological_unit_from_200k_sheet": "下马岭组"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.281256,
+          40.463269
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 4,
+        "name": "鸡镇屯夏马岭组道路剖面",
+        "site_code": "JZT",
+        "group": "下花园",
+        "priority": 4,
+        "remarks": "道路剖面，现场检查是否有新鲜黑色页岩切坡。",
+        "longitude_gcj02": 115.281256,
+        "latitude_gcj02": 40.463269,
+        "longitude_wgs84": 115.274856,
+        "latitude_wgs84": 40.461972,
+        "wgs84_source": "用户提供的WGS84",
+        "geological_unit_from_200k_sheet": "上更新统"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.221886,
+          40.453696
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 5,
+        "name": "黄土岗 Member IV 道路剖面",
+        "site_code": "HTG-IV",
+        "group": "下花园",
+        "priority": 6,
+        "remarks": "Member IV 上部层段对照。",
+        "longitude_gcj02": 115.221886,
+        "latitude_gcj02": 40.453696,
+        "longitude_wgs84": 115.215483,
+        "latitude_wgs84": 40.452394,
+        "wgs84_source": "用户提供的WGS84",
+        "geological_unit_from_200k_sheet": "门头沟组"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.280843,
+          40.461852
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 6,
+        "name": "下花园 Core 1",
+        "site_code": "Core1",
+        "group": "下花园",
+        "priority": 8,
+        "remarks": "研究钻孔辅助定位点，不等同于地表露头。",
+        "longitude_gcj02": 115.280843,
+        "latitude_gcj02": 40.461852,
+        "longitude_wgs84": 115.274444,
+        "latitude_wgs84": 40.460556,
+        "wgs84_source": "用户提供的WGS84",
+        "geological_unit_from_200k_sheet": "上更新统"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.279176,
+          40.464907
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 7,
+        "name": "下花园 Core 3",
+        "site_code": "Core3",
+        "group": "下花园",
+        "priority": 8,
+        "remarks": "研究钻孔辅助定位点，不等同于地表露头。",
+        "longitude_gcj02": 115.279176,
+        "latitude_gcj02": 40.464907,
+        "longitude_wgs84": 115.272778,
+        "latitude_wgs84": 40.463611,
+        "wgs84_source": "用户提供的WGS84",
+        "geological_unit_from_200k_sheet": "下马岭组"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.275004,
+          40.468238
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 8,
+        "name": "下花园 Core 2/4",
+        "site_code": "Core2-4",
+        "group": "下花园",
+        "priority": 8,
+        "remarks": "研究钻孔辅助定位点，不等同于地表露头。",
+        "longitude_gcj02": 115.275004,
+        "latitude_gcj02": 40.468238,
+        "longitude_wgs84": 115.268611,
+        "latitude_wgs84": 40.466944,
+        "wgs84_source": "用户提供的WGS84",
+        "geological_unit_from_200k_sheet": "下马岭组"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.40823,
+          40.469465
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 9,
+        "name": "赵家山剖面1",
+        "site_code": "ZJS1",
+        "group": "赵家山",
+        "priority": 7,
+        "remarks": "热事件对照；关注辉绿岩接触热影响。",
+        "longitude_gcj02": 115.40823,
+        "latitude_gcj02": 40.469465,
+        "longitude_wgs84": 115.401594,
+        "latitude_wgs84": 40.467989,
+        "wgs84_source": "用户提供的WGS84",
+        "geological_unit_from_200k_sheet": "下马岭组"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.406635,
+          40.468142
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 10,
+        "name": "赵家山剖面2",
+        "site_code": "ZJS2",
+        "group": "赵家山",
+        "priority": 7,
+        "remarks": "赵家山空间对照。WGS84为逆算，未提供原始WGS84。",
+        "longitude_gcj02": 115.406635,
+        "latitude_gcj02": 40.468142,
+        "longitude_wgs84": 115.39999967,
+        "latitude_wgs84": 40.46666669,
+        "wgs84_source": "GCJ-02逆算，仅供GIS计算，非野外实测原始坐标",
+        "geological_unit_from_200k_sheet": "下马岭组"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.396077,
+          40.478977
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 11,
+        "name": "赵家山剖面3",
+        "site_code": "ZJS3",
+        "group": "赵家山",
+        "priority": 7,
+        "remarks": "赵家山空间对照。WGS84为逆算，未提供原始WGS84。",
+        "longitude_gcj02": 115.396077,
+        "latitude_gcj02": 40.478977,
+        "longitude_wgs84": 115.38944454,
+        "latitude_wgs84": 40.47750047,
+        "wgs84_source": "GCJ-02逆算，仅供GIS计算，非野外实测原始坐标",
+        "geological_unit_from_200k_sheet": "下马岭组"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.395465,
+          40.478954
+        ]
+      },
+      "properties": {
+        "layer_code": "sample_point",
+        "layer_meaning": "夏马岭组既有采样定位点",
+        "source_sheet": "用户提供的高德GCJ-02点位",
+        "site_no": 12,
+        "name": "赵家山剖面4",
+        "site_code": "ZJS4",
+        "group": "赵家山",
+        "priority": 7,
+        "remarks": "赵家山空间对照。WGS84为逆算，未提供原始WGS84。",
+        "longitude_gcj02": 115.395465,
+        "latitude_gcj02": 40.478954,
+        "longitude_wgs84": 115.38883298,
+        "latitude_wgs84": 40.47747782,
+        "wgs84_source": "GCJ-02逆算，仅供GIS计算，非野外实测原始坐标",
+        "geological_unit_from_200k_sheet": "下马岭组"
+      }
+    }
+  ]
+}
