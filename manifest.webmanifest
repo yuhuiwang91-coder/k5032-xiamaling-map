@@ -1,0 +1,10 @@
+{
+  "name": "宣化幅下马岭组野外地质地图",
+  "short_name": "下马岭采样地图",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#633e35",
+  "description": "高德地图、宣化幅1∶20万原版地质图、12个采样点及野外记录"
+}
