@@ -25,7 +25,7 @@ function esc(s){return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&l
 function showStatus(msg,ms=2800){const e=document.getElementById('status');e.textContent=msg;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',ms)}
 function openModal(id){document.getElementById(id).style.display='flex'} function closeModal(id){document.getElementById(id).style.display='none'}
 document.querySelectorAll('[data-close]').forEach(x=>x.onclick=()=>closeModal(x.dataset.close));
-function creds(){return {key:localStorage.getItem(API_KEY_STORE)||'',sec:localStorage.getItem(SEC_STORE)||''}}
+function creds(){return {key:localStorage.getItem(API_KEY_STORE)||localStorage.getItem('k5032-field-map-api')||'',sec:localStorage.getItem(SEC_STORE)||localStorage.getItem('k5032-field-map-security')||''}}
 function ensureCreds(){let c=creds();document.getElementById('amapKey').value=c.key;document.getElementById('securityCode').value=c.sec;if(!c.key||!c.sec){openModal('setupModal');return false}return true}
 document.getElementById('btnSetup').onclick=()=>{let c=creds();document.getElementById('amapKey').value=c.key;document.getElementById('securityCode').value=c.sec;openModal('setupModal')};
 document.getElementById('btnSaveSetup').onclick=()=>{let k=document.getElementById('amapKey').value.trim(),s=document.getElementById('securityCode').value.trim();if(!k||!s)return showStatus('Key 和 securityJsCode 都需要填写');localStorage.setItem(API_KEY_STORE,k);localStorage.setItem(SEC_STORE,s);location.reload()};
