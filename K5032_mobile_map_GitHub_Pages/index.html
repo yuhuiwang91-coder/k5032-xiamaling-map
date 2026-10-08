@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>宣化幅 K5032 下马岭组野外地质地图 v5.1 集合版</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="map"></div>
+<div id="offlinePreview"><figure><img src="data/preview/K5032_12点位_原色预览.jpg" alt="宣化幅12处采样点原色地质图预览"><figcaption>未加载高德时显示原图静态预览 · 可在“高德设置”输入 Web JS API Key</figcaption></figure></div>
+<div id="toolbar">
+  <button id="btnMenu">图层</button>
+  <button id="btnBase" data-sat="0">卫星图</button>
+  <button id="btnLocate">定位</button>
+  <button id="btnAddSample">新增样点</button>
+  <button id="btnSetup">高德设置</button>
+</div>
+<div id="scopebar">
+  <label>数据范围</label>
+  <select id="scopeSelect">
+    <option value="local">夏马岭组采样区（654要素）</option>
+    <option value="full">K5032 宣化幅全图幅（6637要素）</option>
+  </select>
+  <span id="loadState"></span>
+</div>
+<aside id="panel" class="open">
+  <div class="panel-head"><b>宣化幅 K5032 · 原版1∶20万图式 v5.1</b><button id="btnClosePanel">×</button></div>
+  <div class="tabs"><button class="tab active" data-tab="layers">图层</button><button class="tab" data-tab="search">搜索</button><button class="tab" data-tab="info">属性</button><button class="tab" data-tab="samples">样点</button><button class="tab" data-tab="about">数据审计</button></div>
+  <section id="tab-layers" class="tabbody active">
+    <h3 class="legend-first-title">K-50-(32) 宣化幅 · 原版图例与地质符号</h3>
+    <div id="legend"></div>
+    <div class="raster-controls">
+      <label class="layer-row"><input type="checkbox" id="rasterK5032" checked><span id="rasterScopeName">宣化幅原版图 · 采样区</span><button type="button" id="focusK5032">定位</button></label>
+      <div class="slider-row"><label>原版图透明度</label><input id="rasterOpacitySlider" type="range" min="0" max="1" step="0.05" value="0.72"><span id="rasterOpacityValue">72%</span></div>
+    </div>
+    <h3>矢量查询层</h3>
+    <div id="layerSwitches"></div>
+    <div class="slider-row"><label>矢量面透明度</label><input id="opacitySlider" type="range" min="0" max="0.85" step="0.05" value="0.06"><span id="opacityValue">6%</span></div>
+  </section>
+  <section id="tab-search" class="tabbody">
+    <input id="searchInput" placeholder="搜索 下马岭组、赵家山、侵入岩、断层、地层代号……">
+    <button id="btnSearch" class="wide">搜索全部属性</button>
+    <div id="searchResults"></div>
+  </section>
+  <section id="tab-info" class="tabbody"><div id="featureInfo" class="hint">先在“图层”中开启相应矢量查询层，再点击地图查看全部原始属性。既有12个采样点默认可点击。</div></section>
+  <section id="tab-samples" class="tabbody">
+    <div class="sample-actions"><button id="btnExportCSV">导出 CSV</button><button id="btnExportGeoJSON">导出 GeoJSON</button><button id="btnClearSamples">清空新增点</button></div>
+    <div id="sampleList"></div>
+  </section>
+  <section id="tab-about" class="tabbody">
+    <div class="about">
+      <p><b>源图幅：</b>K-50-(32) 宣化幅，1∶20万地质图。来自你上传的 K5032.rar（MAPGIS 6.7）和 k5032.TIF 原始图面。</p>
+      <p><b>功能：</b>原版图及图例、卫星底图、地质矢量查询、全部原始属性搜索、12处既有采样点、点击新增样点、CSV/GeoJSON导出、高德APP导航。</p>
+      <p><b>图层完整性：</b>GeoPackage中11类原始空间图层共6625个要素，另有12个预设采样点；全幅6637个要素、采样区654个。矢量图层默认只开启采样点，避免覆盖TIF原始配色和符号。</p>
+      <p><b>配准精度：</b>原始TIF没有内嵌地理坐标，根据经纬网和图框四角近似定位。北京54的地理经纬度显示时暂近似视为WGS84后转换为GCJ-02，未进行有实测控制点支持的七参数转换。图上地层边界与采样点不能用于米级判定。</p>
+      <p><b>新增采样点：</b>浏览器会在本机本域名保存新样点；要备份请及时导出CSV或GeoJSON。自采数据使用GCJ-02，不应直接当WGS84科研测量数据。</p>
+      <p><b>使用限制：</b>官方高德APP可通过导航链接打开点位，但不能直接加载本地图层。手机要查看自定义地质图，需要把该网页及文件部署在支持HTTPS的服务器上。</p>
+      <div class="precision-warning">注意：旧1∶20万地质图仅可用于区域地层和断层背景判读。XJG等部分点位与原图所标地层不一致，需现场结合真实露头复核。</div>
+    </div>
+  </section>
+</aside>
+<div id="status"></div>
+
+
+<div id="legendModal" class="modal legend-modal"><div class="legend-modalbox">
+  <div class="legend-modal-head"><b id="legendModalTitle">原版图例</b><button data-close="legendModal">×</button></div>
+  <div class="legend-zoom-hint">可滚动查看；浏览器可用 Ctrl + / Ctrl - 放大缩小。</div>
+  <img id="legendModalImg" src="data/legend/K5032_原始右侧地质图例.png" alt="K5032 原版图例">
+</div></div>
+<div id="setupModal" class="modal"><div class="modalbox"><h2>高德 JS API 设置（Web端）</h2><label>Web端 JS API Key<input id="amapKey"></label><label>securityJsCode<input id="securityCode"></label><div class="modal-actions"><button data-close="setupModal">取消</button><button id="btnSaveSetup" class="primary">保存并重新加载</button></div></div></div>
+<div id="sampleModal" class="modal"><div class="modalbox"><h2>新增采样点</h2><div id="sampleCoord" class="hint"></div><label>编号<input id="sampleCode"></label><label>岩性<input id="sampleLithology"></label><label>产状<input id="sampleAttitude"></label><label>距脉体/反应带<input id="sampleDistance"></label><label>流体/构造关系<input id="sampleRelation"></label><label>备注<textarea id="sampleNote"></textarea></label><div class="modal-actions"><button data-close="sampleModal">取消</button><button id="btnSaveSample" class="primary">保存</button></div></div></div>
+<script src="data/local_data.js"></script>
+<script src="data/raster_layers.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
