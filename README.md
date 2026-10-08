@@ -1,6 +1,10 @@
 # 宣化幅 K5032 · 下马岭组野外地质地图（v5.1）
 
-**手机地图：** https://yuhuiwang91-coder.github.io/k5032-xiamaling-map/
+**在线地图（手机/电脑）：** **[点击打开宣化幅下马岭组野外地质地图](https://yuhuiwang91-coder.github.io/k5032-xiamaling-map/)**
+
+**项目仓库：** https://github.com/yuhuiwang91-coder/k5032-xiamaling-map
+
+> 当前 GitHub Pages 站点使用 main 分支根目录，完整 v5.1 版已部署。GitHub 仓库 About → Website 可填写上述在线地图地址。
 
 此项目按照 [黄麦岭野外地质地图](https://yuhuiwang91-coder.github.io/Huangmailing-Field-Map/) 的交互形式部署，包含相同的主工具栏、五标签侧栏（图层 / 搜索 / 属性 / 样点 / 数据审计）、原版图例展示及新样点记录。
 
